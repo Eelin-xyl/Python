@@ -1,3 +1,3 @@
-s = '22222222222222222'
-s = set(s)
-print(s)
+dic = [(2,1), (1,2)]
+dic.sort()
+print(dic)
