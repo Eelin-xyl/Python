@@ -20,34 +20,29 @@ dataset = pd.read_csv(r'Python\DataAnalysis\SpotifyFeatures(cleaned2).csv',encod
 dataset=dataset.drop('track_id',axis=1)
 
 
-
-
 """
 Split the data into a training and a testing set
 """
 
-X = dataset.iloc[:, :].values
+data = dataset.iloc[:, :].values
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder
 from sklearn.compose import ColumnTransformer
 
-
-# X[:,7] = labelEncoder.fit_transform(X[:,7])
+labelEncoder = LabelEncoder()
+data[:,0] = labelEncoder.fit_transform(data[:,0])
+data[:,1] = labelEncoder.fit_transform(data[:,1])
 
 ct = ColumnTransformer([('key', OneHotEncoder(), [7])], remainder = 'passthrough')
-X = ct.fit_transform(X)
-# oneHotEncoder = OneHotEncoder(categories='key')
-
-labelEncoder = LabelEncoder()
-X[:,0] = labelEncoder.fit_transform(X[:,0])
-X[:,1] = labelEncoder.fit_transform(X[:,1])
-# X = oneHotEncoder.fit_transform(X).toarray()
-# X=X[:, 1:]
+data = ct.fit_transform(data)
 
 
-train_features = X[:80,:-1]
-test_features = X[80:100,:-1]
-train_targets = dataset.iloc[:80,-1].values
-test_targets = dataset.iloc[80:100,-1].values
+data=data[:, 1:]
+
+
+train_features = data[:8000,:-1]
+test_features = data[8000:10000,:-1]
+train_targets = data[:8000,-1]
+test_targets = data[8000:10000,-1]
 
 
 
@@ -59,6 +54,10 @@ Train the model
 tree = DecisionTreeClassifier(criterion = 'entropy').fit(train_features,train_targets)
 
 
+"""
+Fit tree
+"""
+tree = tree.fit(train_features, train_targets)
 
 """
 Predict the classes of new, unseen data
