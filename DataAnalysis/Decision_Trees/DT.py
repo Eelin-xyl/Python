@@ -16,6 +16,8 @@ dataset = pd.read_csv(r'Python\DataAnalysis\SpotifyFeatures(cleaned3).csv',encod
 
 
 #We drop the animal names since this is not a good feature to split the data on
+dataset=dataset.drop('artist_name',axis=1)
+dataset=dataset.drop('track_name',axis=1)
 dataset=dataset.drop('track_id',axis=1)
 # df2.drop('ration',axis='columns',inplace=True)
 
