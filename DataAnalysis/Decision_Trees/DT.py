@@ -8,7 +8,7 @@ from pprint import pprint
 
 
 #Import the dataset and define the feature as well as the target datasets / columns#
-dataset = pd.read_csv(r'Python\DataAnalysis\SpotifyFeatures(cleaned2).csv',encoding="gbk", low_memory=False,
+dataset = pd.read_csv(r'Python\DataAnalysis\SpotifyFeatures(cleaned3).csv',encoding="gbk", low_memory=False,
                       names=['artist_name','track_name','track_id','popularity',
                                                    'acousticness','danceability','energy','instrumentalness','key',
                                                   'liveness','loudness','mode','speechiness','tempo','time_signature','valence','genre'])#Import all columns omitting the fist which consists the names of the animals
@@ -243,9 +243,9 @@ a training and a testing set. The test function takes two parameters, which are 
 ###################
 
 def train_test_split(dataset):
-    training_data = dataset.iloc[:18000].reset_index(drop=True)#We drop the index respectively relabel the index
+    training_data = dataset.iloc[:8000].reset_index(drop=True)#We drop the index respectively relabel the index
     #starting form 0, because we do not want to run into errors regarding the row labels / indexes
-    testing_data = dataset.iloc[18000:20000].reset_index(drop=True)
+    testing_data = dataset.iloc[8000:10000].reset_index(drop=True)
     return training_data,testing_data
 
 training_data = train_test_split(dataset)[0]
