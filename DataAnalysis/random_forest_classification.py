@@ -6,11 +6,11 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 # Importing the dataset
-dataset = pd.read_csv(r'Python\\DataAnalysis\\SpotifyFeatures(cleaned3).csv', encoding="gbk")
+dataset = pd.read_csv('Python\\DataAnalysis\\SpotifyFeatures2.csv')
 
-dataset=dataset.drop('artist_name',axis=1)
+# dataset=dataset.drop('artist_name',axis=1)
 dataset=dataset.drop('track_name',axis=1)
-dataset=dataset.drop('key',axis=1)
+# dataset=dataset.drop('key',axis=1)
 dataset=dataset.drop('track_id',axis=1)
 
 dataset = dataset.iloc[:10000,:].values
@@ -18,21 +18,20 @@ dataset = dataset.iloc[:10000,:].values
 X = dataset[:,:-1]
 y = dataset[:, -1]
 
-# from sklearn.preprocessing import LabelEncoder, OneHotEncoder
-# from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import LabelEncoder, OneHotEncoder
+from sklearn.compose import ColumnTransformer
 
-# # labelEncoder = LabelEncoder()
-# # data[:,0] = labelEncoder.fit_transform(data[:,0])
-# # data[:,1] = labelEncoder.fit_transform(data[:,1])
-# ct = ColumnTransformer([('artist_name', OneHotEncoder(), [0])], remainder = 'passthrough')
-# data = ct.fit_transform(data)
+labelEncoder = LabelEncoder()
+X[:,1] = labelEncoder.fit_transform(X[:,1])
 
-# ct = ColumnTransformer([('key', OneHotEncoder(), [7])], remainder = 'passthrough')
-# data = ct.fit_transform(data)
+ct = ColumnTransformer([('artist_name', OneHotEncoder(), [0])], remainder = 'passthrough')
+dataset = ct.fit_transform(X)
+
+X = X[:,1:]
 
 # Splitting the dataset into the Training set and Test set
 from sklearn.model_selection import train_test_split
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 1)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 0)
 
 # Feature Scaling
 # from sklearn.preprocessing import StandardScaler
@@ -43,60 +42,14 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, rando
 # Fitting Random Forest to the Training set
 from sklearn.ensemble import RandomForestClassifier
 classifier = RandomForestClassifier(n_estimators = 125, criterion = 'gini', random_state = 0 )
+
+classifier = RandomForestClassifier(n_estimators=10, criterion='gini', max_depth=50, min_samples_split=10, 
+min_samples_leaf=1, min_weight_fraction_leaf=0.0, max_features='auto', max_leaf_nodes=None, 
+min_impurity_decrease=0.0, min_impurity_split=None, bootstrap=True, oob_score=False, n_jobs=1, 
+random_state=None, verbose=0, warm_start=False, class_weight=None)
+
 classifier.fit(X_train, y_train)
 
 # Predicting the Test set results
 y_pred = classifier.predict(X_test)
 print(classifier.score(X_test, y_test)*100, '%')
-
-# Making the Confusion Matrix
-# from sklearn.metrics import confusion_matrix
-# cm = confusion_matrix(y_test, y_pred)
-# # print(cm)
-
-# plt.imshow(cm, cmap=plt.cm.Blues)
-# indices = range(len(cm))
-# plt.xticks(indices, set(y_pred))
-# plt.yticks(indices, set(y_pred))
-# plt.colorbar()
-# plt.xlabel('y_train')
-# plt.ylabel('y_pred')
-# for first_index in range(len(cm)):
-#     for second_index in range(len(cm[first_index])):
-#         plt.text(first_index, second_index, cm[first_index][second_index])
-# plt.show()
-# # Visualising the Training set results
-# from matplotlib.colors import ListedColormap
-# X_set, y_set = X_train, y_train
-# X1, X2 = np.meshgrid(np.arange(start = X_set[:, 0].min() - 1, stop = X_set[:, 0].max() + 1, step = 0.01),
-#                      np.arange(start = X_set[:, 1].min() - 1, stop = X_set[:, 1].max() + 1, step = 0.01))
-# plt.contourf(X1, X2, classifier.predict(np.array([X1.ravel(), X2.ravel()]).T).reshape(X1.shape),
-#              alpha = 0.75, cmap = ListedColormap(('red', 'green')))
-# plt.xlim(X1.min(), X1.max())
-# plt.ylim(X2.min(), X2.max())
-# for i, j in enumerate(np.unique(y_set)):
-#     plt.scatter(X_set[y_set == j, 0], X_set[y_set == j, 1],
-#                 c = ListedColormap(('orange', 'blue'))(i), label = j, s=15)
-# plt.title('Random Forest (Training set)')
-# plt.xlabel('Age')
-# plt.ylabel('Estimated Salary')
-# plt.legend()
-# plt.show()
-
-# # Visualising the Test set results
-# from matplotlib.colors import ListedColormap
-# X_set, y_set = X_test, y_test
-# X1, X2 = np.meshgrid(np.arange(start = X_set[:, 0].min() - 1, stop = X_set[:, 0].max() + 1, step = 0.01),
-#                      np.arange(start = X_set[:, 1].min() - 1, stop = X_set[:, 1].max() + 1, step = 0.01))
-# plt.contourf(X1, X2, classifier.predict(np.array([X1.ravel(), X2.ravel()]).T).reshape(X1.shape),
-#              alpha = 0.75, cmap = ListedColormap(('red', 'green')))
-# plt.xlim(X1.min(), X1.max())
-# plt.ylim(X2.min(), X2.max())
-# for i, j in enumerate(np.unique(y_set)):
-#     plt.scatter(X_set[y_set == j, 0], X_set[y_set == j, 1],
-#                 c = ListedColormap(('orange', 'blue'))(i), label = j, s=15)
-# plt.title('Random Forest (Test set)')
-# plt.xlabel('Age')
-# plt.ylabel('Estimated Salary')
-# plt.legend()
-# plt.show()
