@@ -12,11 +12,11 @@ Import the Zoo Dataset
 """
 
 #Import the dataset 
-dataset = pd.read_csv(r'Python\DataAnalysis\SpotifyFeatures(cleaned2).csv',encoding="gbk")
+dataset = pd.read_csv(r'Python\DataAnalysis\SpotifyFeatures(cleaned3).csv',encoding="gbk")
 #We drop the animal names since this is not a good feature to split the data on
-dataset=dataset.drop('artist_name',axis=1)
+# dataset=dataset.drop('artist_name',axis=1)
 dataset=dataset.drop('track_name',axis=1)
-dataset=dataset.drop('key',axis=1)
+# dataset=dataset.drop('key',axis=1)
 dataset=dataset.drop('track_id',axis=1)
 
 
@@ -25,18 +25,20 @@ Split the data into a training and a testing set
 """
 
 data = dataset.iloc[:, :].values
-# from sklearn.preprocessing import LabelEncoder, OneHotEncoder
-# from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import LabelEncoder, OneHotEncoder
+from sklearn.compose import ColumnTransformer
 
 # labelEncoder = LabelEncoder()
 # data[:,0] = labelEncoder.fit_transform(data[:,0])
 # data[:,1] = labelEncoder.fit_transform(data[:,1])
+ct = ColumnTransformer([('artist_name', OneHotEncoder(), [0])], remainder = 'passthrough')
+data = ct.fit_transform(data)
 
-# ct = ColumnTransformer([('key', OneHotEncoder(), [7])], remainder = 'passthrough')
-# data = ct.fit_transform(data)
+ct = ColumnTransformer([('key', OneHotEncoder(), [7])], remainder = 'passthrough')
+data = ct.fit_transform(data)
 
 
-# data=data[:, 1:]
+data=data[:, 1:]
 
 
 X = data[:,:-1]
