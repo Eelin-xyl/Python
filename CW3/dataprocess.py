@@ -16,7 +16,7 @@ dataset.drop('TARGET', axis=1).corrwith(dataset.TARGET).plot(kind = 'bar', grid 
                                                    title = "Correlation with Target")
 plt.show()
 
-df_1 = dataset[['ST','MIN','2FGM','2FGA','3FGM','3FGA','FTM','FTA','OREB',
+df_1 = dataset[['GS','MIN','2FGM','2FGA','3FGM','3FGA','FTM','FTA','OREB',
                 'DREB','AST','STL','BCK','TO','PF','PTS']]
 # print(df_1.describe())
 for item in df_1.columns:
