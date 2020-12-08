@@ -11,7 +11,7 @@ y = dataset.iloc[:,-1].values
 # sns.boxplot(x = dataset.ejection_fraction)
 # plt.show()
 
-dataset.drop('WIN', axis=1).corrwith(dataset.WIN).plot(kind = 'bar', grid = True,
+dataset.drop('TARGET', axis=1).corrwith(dataset.TARGET).plot(kind = 'bar', grid = True,
                                                    figsize = (12, 8),
                                                    title = "Correlation with Target")
 plt.show()
