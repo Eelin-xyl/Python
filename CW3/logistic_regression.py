@@ -7,6 +7,12 @@ import pandas as pd
 
 # Importing the dataset
 dataset = pd.read_csv('Python\\CW3\\playerdata.csv')
+
+dataset=dataset.drop('OREB',axis=1)
+dataset=dataset.drop('STL',axis=1)
+dataset=dataset.drop('TO',axis=1)
+dataset=dataset.drop('PF',axis=1)
+
 X = dataset.iloc[:,:-1].values
 y = dataset.iloc[:,-1].values
 
