@@ -22,6 +22,6 @@ plt.tight_layout()
 plt.show()
 
 dataset.drop('TARGET', axis=1).corrwith(dataset.TARGET).plot(kind = 'bar', grid = True,
-                                                            figsize = (12, 8),
-                                                            title = "Correlation with Target")
+                                                            title = "Correlation with Target"
+                                                            )
 plt.show()
