@@ -38,15 +38,13 @@ print(round(classifier.score(X_test, y_test),4)*100, '%')
 # Making the Confusion Matrix
 from sklearn.metrics import confusion_matrix
 cm = confusion_matrix(y_test, y_pred)
+print(cm)
 
-plt.imshow(cm, cmap=plt.cm.Blues)
-indices = range(len(cm))
-plt.xticks(indices, set(y_pred))
-plt.yticks(indices, set(y_pred))
+plt.matshow(cm, cmap=plt.cm.Blues) 
 plt.colorbar()
-plt.xlabel('y_train')
-plt.ylabel('y_pred')
-for first_index in range(len(cm)):
-    for second_index in range(len(cm[first_index])):
-        plt.text(first_index, second_index, cm[first_index][second_index])
+for i in range(len(cm)): 
+    for j in range(len(cm)):
+        plt.annotate(cm[i,j], xy=(i, j), horizontalalignment='center', verticalalignment='center')
+plt.ylabel('True label')
+plt.xlabel('Predicted label') 
 plt.show()
