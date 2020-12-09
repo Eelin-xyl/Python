@@ -45,7 +45,7 @@ plt.matshow(cm, cmap=plt.cm.Blues)
 plt.colorbar()
 for i in range(len(cm)): 
     for j in range(len(cm)):
-        plt.annotate(cm[i,j], xy=(i, j), horizontalalignment='center', verticalalignment='center')
+        plt.annotate(cm[i,j], xy=(i, j))
 plt.ylabel('True label')
 plt.xlabel('Predicted label') 
 plt.show()
