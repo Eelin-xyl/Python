@@ -28,14 +28,14 @@ data = dataset.iloc[:, :].values
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder
 from sklearn.compose import ColumnTransformer
 
-# labelEncoder = LabelEncoder()
+labelEncoder = LabelEncoder()
 # data[:,0] = labelEncoder.fit_transform(data[:,0])
-# data[:,1] = labelEncoder.fit_transform(data[:,1])
+data[:,6] = labelEncoder.fit_transform(data[:,6])
 ct = ColumnTransformer([('artist_name', OneHotEncoder(), [0])], remainder = 'passthrough')
 data = ct.fit_transform(data)
 
-ct = ColumnTransformer([('key', OneHotEncoder(), [7])], remainder = 'passthrough')
-data = ct.fit_transform(data)
+# ct = ColumnTransformer([('key', OneHotEncoder(), [6])], remainder = 'passthrough')
+# data = ct.fit_transform(data)
 
 
 data=data[:, 1:]

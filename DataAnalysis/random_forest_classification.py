@@ -6,14 +6,14 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 # Importing the dataset
-dataset = pd.read_csv('Python\\DataAnalysis\\SpotifyFeatures2.csv')
+dataset = pd.read_csv(r'Python\\DataAnalysis\\SpotifyFeatures(cleaned2).csv',encoding='gbk')
 
 # dataset=dataset.drop('artist_name',axis=1)
 dataset=dataset.drop('track_name',axis=1)
 # dataset=dataset.drop('key',axis=1)
 dataset=dataset.drop('track_id',axis=1)
 
-dataset = dataset.iloc[:10000,:].values
+dataset = dataset.iloc[:,:].values
 
 X = dataset[:,:-1]
 y = dataset[:, -1]
@@ -22,12 +22,14 @@ from sklearn.preprocessing import LabelEncoder, OneHotEncoder
 from sklearn.compose import ColumnTransformer
 
 labelEncoder = LabelEncoder()
-X[:,1] = labelEncoder.fit_transform(X[:,1])
+X[:,6] = labelEncoder.fit_transform(X[:,6])
 
 ct = ColumnTransformer([('artist_name', OneHotEncoder(), [0])], remainder = 'passthrough')
-dataset = ct.fit_transform(X)
+X = ct.fit_transform(X)
 
 X = X[:,1:]
+
+y = labelEncoder.fit_transform(y)
 
 # Splitting the dataset into the Training set and Test set
 from sklearn.model_selection import train_test_split
