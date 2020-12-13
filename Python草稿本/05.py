@@ -1,3 +1,3 @@
 S = "ababcbacadefegdehijhklij"
-s = list(S)
-s.sort()
+for i, v in enumerate(S):
+    print(i, v)
