@@ -6,21 +6,23 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 # Importing the dataset
-dataset = pd.read_csv(r'Python\\DataAnalysis\\SpotifyFeatures(merge).csv', encoding='gbk')
+dataset = pd.read_csv(r'Python\\DataAnalysis\\SpotifyFeatures(cleaned3).csv', encoding='gbk')
 
-dataset=dataset.drop('artist_name',axis=1)
-dataset=dataset.drop('track_name',axis=1)
-dataset=dataset.drop('key',axis=1)
-dataset=dataset.drop('track_id',axis=1)
+# dataset=dataset.drop('artist_name',axis=1)
+# dataset=dataset.drop('track_name',axis=1)
+# dataset=dataset.drop('key',axis=1)
+# dataset=dataset.drop('track_id',axis=1)
 
 # dataset=dataset.drop('speechiness', axis=1)
 # dataset=dataset.drop('loudness',axis=1)
 # dataset=dataset.drop('valence',axis=1)
+# dataset=dataset.drop('duration_ms',axis=1)
 # dataset=dataset.drop('instrumentalness',axis=1)
-# dataset=dataset.drop('tempo',axis=1)
+# dataset=dataset.drop('acousticness',axis=1)
+dataset=dataset.drop('tempo',axis=1)
 # dataset=dataset.drop('liveness',axis=1)
-# dataset=dataset.drop('mode',axis=1)
-# dataset=dataset.drop('time_signature'  ,axis=1)
+dataset=dataset.drop('mode',axis=1)
+dataset=dataset.drop('time_signature'  ,axis=1)
 
 
 dataset = dataset.iloc[:,:].values
@@ -28,16 +30,18 @@ dataset = dataset.iloc[:,:].values
 X = dataset[:, 1:]
 y = dataset[:, 0]
 
-# from sklearn.preprocessing import LabelEncoder, OneHotEncoder
-# from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import LabelEncoder, OneHotEncoder
+from sklearn.compose import ColumnTransformer
 
-# labelEncoder = LabelEncoder()
-# X[:,6] = labelEncoder.fit_transform(X[:,6])
+ct = ColumnTransformer([('artist_name', OneHotEncoder(), [0])], remainder = 'passthrough')
+X = ct.fit_transform(X)
 
-# ct = ColumnTransformer([('artist_name', OneHotEncoder(), [0])], remainder = 'passthrough')
-# X = ct.fit_transform(X)
+print(X[:3, -3])
+labelencoder_X = LabelEncoder()
+X[:,-3]=labelencoder_X.fit_transform(X[:,-3])
 
-# X = X[:,1:]
+labelencoder_y = LabelEncoder()
+y = labelencoder_y.fit_transform(y)
 
 # Splitting the dataset into the Training set and Test set
 from sklearn.model_selection import train_test_split
@@ -45,7 +49,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, rando
 
 # Fitting Random Forest to the Training set
 from sklearn.ensemble import RandomForestClassifier
-classifier = RandomForestClassifier(criterion = 'gini', n_estimators=150, class_weight=  'balanced_subsample', max_features='sqrt')
+classifier = RandomForestClassifier(criterion = 'gini', n_estimators=50, class_weight=  'balanced_subsample', max_features='sqrt')
 
 # classifier = RandomForestClassifier(n_estimators=10, criterion='gini', max_depth=50, min_samples_split=10, 
 # min_samples_leaf=1, min_weight_fraction_leaf=0.0, max_features='auto', max_leaf_nodes=None, 
