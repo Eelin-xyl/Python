@@ -10,7 +10,7 @@ dataset = pd.read_csv(r'Python\\DataAnalysis\\SpotifyFeatures(cleaned3).csv', en
 
 # dataset=dataset.drop('artist_name',axis=1)
 # dataset=dataset.drop('track_name',axis=1)
-# dataset=dataset.drop('key',axis=1)
+dataset=dataset.drop('key',axis=1)
 # dataset=dataset.drop('track_id',axis=1)
 
 # dataset=dataset.drop('speechiness', axis=1)
@@ -19,10 +19,10 @@ dataset = pd.read_csv(r'Python\\DataAnalysis\\SpotifyFeatures(cleaned3).csv', en
 # dataset=dataset.drop('duration_ms',axis=1)
 # dataset=dataset.drop('instrumentalness',axis=1)
 # dataset=dataset.drop('acousticness',axis=1)
-dataset=dataset.drop('tempo',axis=1)
+# dataset=dataset.drop('tempo',axis=1)
 # dataset=dataset.drop('liveness',axis=1)
-dataset=dataset.drop('mode',axis=1)
-dataset=dataset.drop('time_signature'  ,axis=1)
+# dataset=dataset.drop('mode',axis=1)
+# dataset=dataset.drop('time_signature',axis=1)
 
 
 dataset = dataset.iloc[:,:].values
@@ -36,10 +36,6 @@ from sklearn.compose import ColumnTransformer
 ct = ColumnTransformer([('artist_name', OneHotEncoder(), [0])], remainder = 'passthrough')
 X = ct.fit_transform(X)
 
-print(X[:3, -3])
-labelencoder_X = LabelEncoder()
-X[:,-3]=labelencoder_X.fit_transform(X[:,-3])
-
 labelencoder_y = LabelEncoder()
 y = labelencoder_y.fit_transform(y)
 
@@ -49,7 +45,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, rando
 
 # Fitting Random Forest to the Training set
 from sklearn.ensemble import RandomForestClassifier
-classifier = RandomForestClassifier(criterion = 'gini', n_estimators=50, class_weight=  'balanced_subsample', max_features='sqrt')
+classifier = RandomForestClassifier(criterion = 'gini', n_estimators=100, class_weight='balanced_subsample', max_features='sqrt')
 
 # classifier = RandomForestClassifier(n_estimators=10, criterion='gini', max_depth=50, min_samples_split=10, 
 # min_samples_leaf=1, min_weight_fraction_leaf=0.0, max_features='auto', max_leaf_nodes=None, 
@@ -78,7 +74,7 @@ print(f1_score(y_test, y_pred, average='weighted'))
 
 from sklearn.metrics import confusion_matrix
 cm = confusion_matrix(y_test, y_pred)
-print(cm)
+# print(cm)
 
 plt.matshow(cm, cmap=plt.cm.Blues) 
 plt.colorbar()

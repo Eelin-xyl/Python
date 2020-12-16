@@ -134,7 +134,7 @@ for i in range(223253):
 for i in range(len(lst)):
     for j, w in enumerate(lst[i]):
         a = round(np.mean(w), 4)
-        b = round(np.std(w,ddof=1), 4)
+        b = round(np.std(w,ddof=1), 4)/2
         lst[i][j] = [a-b, a+b]
 
 for i in range(223253):
@@ -238,5 +238,5 @@ for i in range(223253):
         for j in range(11):
             dataset.iloc[i,j+2] = round(random.uniform(lst[24][j][0], lst[24][j][1]),4)
 
-dataset.to_csv(r'Python\DataAnalysis\SpotifyFeatures(cleaned3).csv', encoding = 'gbk')
+dataset.to_csv(r'Python\DataAnalysis\SpotifyFeatures(half).csv', encoding = 'gbk')
 print('YES')

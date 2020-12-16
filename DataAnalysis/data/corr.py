@@ -9,7 +9,7 @@ url1 = pd.read_csv(r'Python\\DataAnalysis\\SpotifyFeatures(cleaned3).csv', encod
 url1 = url1.drop('artist_name',axis=1)
 url1 = url1.drop('key',axis=1)
 url1.columns = ['genre','popularity','acousticness','danceability','duration_ms','energy','instrumentalness',
-                'liveness',	'loudness',	'speechiness','tempo','valence','mode','time_signature']
+                'liveness',	'loudness', 'speechiness','tempo','valence', 'mode','time_signature']
 # print(url1)
  
 # 查看几个标签
