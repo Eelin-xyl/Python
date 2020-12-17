@@ -36,8 +36,8 @@ from sklearn.compose import ColumnTransformer
 ct = ColumnTransformer([('artist_name', OneHotEncoder(), [0])], remainder = 'passthrough')
 X = ct.fit_transform(X)
 
-labelencoder_y = LabelEncoder()
-y = labelencoder_y.fit_transform(y)
+# labelencoder_y = LabelEncoder()
+# y = labelencoder_y.fit_transform(y)
 
 # Splitting the dataset into the Training set and Test set
 from sklearn.model_selection import train_test_split
@@ -45,7 +45,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, rando
 
 # Fitting Random Forest to the Training set
 from sklearn.ensemble import RandomForestClassifier
-classifier = RandomForestClassifier(criterion = 'gini', n_estimators=100, class_weight='balanced_subsample', max_features='sqrt')
+classifier = RandomForestClassifier(criterion = 'gini', n_estimators=150, class_weight='balanced_subsample', max_features='sqrt')
 
 # classifier = RandomForestClassifier(n_estimators=10, criterion='gini', max_depth=50, min_samples_split=10, 
 # min_samples_leaf=1, min_weight_fraction_leaf=0.0, max_features='auto', max_leaf_nodes=None, 
@@ -82,5 +82,5 @@ for i in range(len(cm)):
     for j in range(len(cm)):
         plt.annotate(cm[i,j], xy=(i, j))
 plt.ylabel('True label')
-plt.xlabel('Predicted label') 
+plt.xlabel('Predicted label')
 plt.show()
