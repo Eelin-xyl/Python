@@ -11,9 +11,9 @@ y = dataset.iloc[:,-1].values
 # sns.boxplot(x = dataset.ejection_fraction)
 # plt.show()
 
-dataset.drop(dataset[dataset['FTM'] > 20].index, inplace=True)
-dataset.drop(dataset[dataset['STL'] > 7.5].index, inplace=True)
-dataset.drop(dataset[dataset['TO'] > 6].index, inplace=True)
+# dataset.drop(dataset[dataset['FTM'] > 20].index, inplace=True)
+# dataset.drop(dataset[dataset['STL'] > 7.5].index, inplace=True)
+# dataset.drop(dataset[dataset['TO'] > 6].index, inplace=True)
 
 
 dataset.drop('TARGET', axis=1).corrwith(dataset.TARGET).plot(kind = 'bar', grid = True,
