@@ -7,7 +7,11 @@ class ComplexNumber:
         self._imaginary = imaginary
 
     def __str__(self):
-        return self._real + ' + ' +  self._imaginary + 'i'
+        return self._real + ' + ' +  self._imaginary + ' i '
 
     def __eq__(self, other):
-        return self._real == other._real
+        if isinstance(other, ComplexNumber):
+            return self._real == other._real and self._imaginary == other._imaginary
+        if isinstance(other, int) or isinstance(other, float):
+            return self._real == other and self._imaginary == 0
+        return False
