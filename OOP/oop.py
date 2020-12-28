@@ -12,7 +12,8 @@ class Screen(object):
     
     
     def status(self):
-        print('brightness level:', s.getblevel, '; elements:', s.lst)
+        prt = 'brightness level:' + str(self._blevel) + '; elements:' + str(self.lst)
+        return prt
 
     @property
     def getblevel(self):
@@ -21,22 +22,22 @@ class Screen(object):
     @getblevel.setter
     def setblevel(self, blevel):
         if type(blevel) != int:
-            raise ValueError('The input must be an integer')
+            raise ValueError('The input (' + str(blevel) + ') type must be int')
 
         elif blevel < Screen.MIN or blevel > Screen.MAX:
-            raise ValueError('The input must between 0 and 100 (bounds included)')
+            raise ValueError('The input (' + str(blevel) + ') must between 0 and 100 (bounds included)')
 
         else:
             self._blevel = blevel
 
-    def addElements(self, element):
+    def addEle(self, element):
         if len(self.lst) < 20:
             self.lst.append(element)
 
         else:
             print('The element list is full')
 
-    def delElements(self, element):
+    def delEle(self, element):
         if len(self.lst) == 0:
             print('The element list is empty')
 
@@ -46,41 +47,39 @@ class Screen(object):
         else:
             self.lst.remove(element)
 
-    def clearElements(self):
+    def clearEle(self):
         self.lst.clear()
-
 
 if __name__ == "__main__":
 
     s = Screen(15, 'test')
-    s.status()
+    print(s.status())
 
-    s.addElements(1)
-    s.status()
+    s.addEle(1)
+    print(s.status())
 
-    s.delElements(1)
-    s.status()
+    s.delEle(1)
+    print(s.status())
 
-    s.delElements('test')
-    s.status()
+    s.delEle('test')
+    print(s.status())
 
-    s.addElements(2)
-    s.status()
-    s.delElements(1)
-    s.status()
+    s.addEle(2)
+    print(s.status())
+    s.delEle(1)
+    print(s.status())
 
     
     print('full test')
-    s.clearElements()
-    s.status()
+    s.clearEle()
+    print(s.status())
     for i in range(20):
-        s.addElements(1)
-    s.status()
-    s.addElements('test')
+        s.addEle(1)
+    print(s.status())
+    s.addEle('test')
 
     s.setblevel = 2
-    print(s.getblevel)
-    s.status()
+    print(s.status())
 
     s.setblevel = 1.1
-    print(s.getblevel)
+    print(s.status())
