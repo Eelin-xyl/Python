@@ -34,10 +34,16 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, rando
 # Fitting regression to the Training set
 from sklearn import svm
 model_SVR = svm.SVR()
-
 model_SVR.fit(X_train, y_train)
 
 # Predicting the Test set results
 from sklearn.metrics import mean_absolute_error
 y_pred = model_SVR.predict(X_test)
 print(mean_absolute_error(y_test, y_pred))
+
+#Visualization
+fig = plt.figure(figsize=(10,6))
+plt.plot(range(y_test.shape[0]),y_test,color="blue", linewidth=1.5, linestyle="-")
+plt.plot(range(y_test.shape[0]),y_pred,color="red", linewidth=1.5, linestyle="-.")
+plt.legend(['True','Pre'])
+plt.show()

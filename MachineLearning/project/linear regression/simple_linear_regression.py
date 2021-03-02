@@ -34,3 +34,10 @@ regressor.fit(X_train, y_train)
 from sklearn.metrics import mean_absolute_error
 y_pred = regressor.predict(X_test)
 print(mean_absolute_error(y_test, y_pred))
+
+#Visualization
+fig = plt.figure(figsize=(10,6))
+plt.plot(range(y_test.shape[0]),y_test,color="blue", linewidth=1.5, linestyle="-")
+plt.plot(range(y_test.shape[0]),y_pred,color="red", linewidth=1.5, linestyle="-.")
+plt.legend(['True','Pre'])
+plt.show()
