@@ -4,4 +4,4 @@ s.reverse()
 ans = ''
 for i in s:
     ans += i
-print(int(ans))4
+print(int(ans))
